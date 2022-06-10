@@ -3,7 +3,7 @@ function noInputtedWord(word, text) {
   return ((text.trim().length === 0) || (word.trim().length === 0));
 }
 
-//bussiness logic
+//business logic
 function wordCounter(text) {
   if (text.trim().length === 0) {
     return 0;
@@ -69,23 +69,43 @@ function omitBadWords(text) {
   return result;
   };
 
-// UI Logic
+// function boldLetters(word) {
+//   let wordArray = word.split("");
+//   console.log(wordArray);
+//   let boldedLetters = `<b>${wordArray.join()}</b>`;
+// }
+
+// 5+5=10
+// applejuicewater
+// 012345678910
+// let wordIndex = element.indexOf(word);
+// let lettersBefore = element.slice(0,wordIndex);
+// let firstIndex = wordIndex + word.length;
+// let secondIndex = element.length;
+// let lettersAfter = element.slice(firstIndex,secondIndex);
+
 function boldPassage(word, text) {
   let htmlString = "<p>";
   let textArray = text.split(" ");
   textArray.forEach(function(element, index) {
-    if (word === element) {
-      htmlString = htmlString.concat("<b>" + element + "</b>");
+    if (element.includes(word)) {
+      const wordIndex = element.indexOf(word);
+      const lettersBefore = element.slice(0, wordIndex);
+      const firstIndex = wordIndex + word.length;
+      const secondIndex = element.length;
+      const lettersAfter = element.slice(firstIndex, secondIndex);
+      htmlString = htmlString.concat(lettersBefore + "<b>" + word + "</b>" + lettersAfter);
     } else {
       htmlString = htmlString.concat(element);
     }
     if (index !== (textArray.length - 1)) {
-    htmlString = htmlString.concat(" ");
+      htmlString = htmlString.concat(" ");
     }
   });
   return htmlString + "</p>";
 }
 
+// UI Logic
 $(document).ready(function(){
   $("form#word-counter").submit(function(event){
     event.preventDefault();
